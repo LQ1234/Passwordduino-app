@@ -367,7 +367,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="6At-p1-P3x">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" id="6At-p1-P3x" customClass="BluetoothDeviceListTableViewCell" customModule="Passwordduino" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="414" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6At-p1-P3x" id="ZhV-mx-RQ7">
@@ -386,6 +386,9 @@
                                         <constraint firstItem="HGX-zy-Pth" firstAttribute="centerY" secondItem="ZhV-mx-RQ7" secondAttribute="centerY" id="SD9-yU-YZM"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="label" destination="HGX-zy-Pth" id="95z-UU-RIu"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

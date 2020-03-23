@@ -17,39 +17,52 @@ class PasswordduinoInfo: NSObject {
     public static let syncNumUUID = CBUUID.init(string: "93752cfb-3ecc-44ae-a90f-1261766b8869")
 }
 
-class BluetoothDeviceListTableViewController: UITableViewController, CBPeripheralDelegate, CBCentralManagerDelegate {
-
+class BluetoothDeviceListTableViewController: UITableViewController, CBCentralManagerDelegate {
+    var foundPeripherals:[CBPeripheral]=[];
+    
+    private var centralManager: CBCentralManager!
     override func viewDidLoad() {
         super.viewDidLoad()
+        centralManager = CBCentralManager(delegate: self, queue: nil)
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        print("Central state update");
+        if central.state != .poweredOn {
+            print("Central is not powered on");
+        } else {
+            print("Central scanning");
+            centralManager.scanForPeripherals(withServices: nil)
+        }
+    }
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        foundPeripherals.append(peripheral);
+        tableView.insertRows(at: [IndexPath(row: foundPeripherals.count, section: 0)], with: .automatic)
 
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1;
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return foundPeripherals.count;
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)  as? BluetoothDeviceListTableViewCell else{
+            fatalError("The dequeued cell is of wrong type.")
+        }
+        
+        cell.label.text = foundPeripherals[indexPath.row].name;
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

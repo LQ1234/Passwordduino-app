@@ -22,6 +22,7 @@
 		C440A110241FECEE004899F5 /* DuckyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C440A10F241FECEE004899F5 /* DuckyViewController.swift */; };
 		C45583302422EC8400A0416A /* PasswordEntryPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C455832F2422EC8400A0416A /* PasswordEntryPopup.swift */; };
 		C47BD76F24228A470012046A /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47BD76E24228A470012046A /* SettingsTableViewController.swift */; };
+		C4CD8E02242977D000D40097 /* BluetoothDeviceListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CD8E01242977D000D40097 /* BluetoothDeviceListTableViewCell.swift */; };
 		C4DF5FB724213E0E00CA665B /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DF5FB624213E0E00CA665B /* Authentication.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		C440A10F241FECEE004899F5 /* DuckyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuckyViewController.swift; sourceTree = "<group>"; };
 		C455832F2422EC8400A0416A /* PasswordEntryPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEntryPopup.swift; sourceTree = "<group>"; };
 		C47BD76E24228A470012046A /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		C4CD8E01242977D000D40097 /* BluetoothDeviceListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceListTableViewCell.swift; sourceTree = "<group>"; };
 		C4DF5FB624213E0E00CA665B /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				C4285550242965BE0069CE7F /* BluetoothDeviceListTableViewController.swift */,
+				C4CD8E01242977D000D40097 /* BluetoothDeviceListTableViewCell.swift */,
 				C47BD76E24228A470012046A /* SettingsTableViewController.swift */,
 				C4DF5FB624213E0E00CA665B /* Authentication.swift */,
 				C440A0E3241EF3A4004899F5 /* AppDelegate.swift */,
@@ -236,6 +239,7 @@
 				C440A10C241FEA66004899F5 /* PasswordOrDuckyViewController.swift in Sources */,
 				C47BD76F24228A470012046A /* SettingsTableViewController.swift in Sources */,
 				C440A108241FBDE6004899F5 /* EntryTableViewController.swift in Sources */,
+				C4CD8E02242977D000D40097 /* BluetoothDeviceListTableViewCell.swift in Sources */,
 				C45583302422EC8400A0416A /* PasswordEntryPopup.swift in Sources */,
 				C440A0E6241EF3A4004899F5 /* SceneDelegate.swift in Sources */,
 				C4DF5FB724213E0E00CA665B /* Authentication.swift in Sources */,
