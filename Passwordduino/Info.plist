@@ -61,6 +61,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSFaceIDUsageDescription</key>
-	<string>Authentication</string>
+	<string>App uses Face ID to authenticate you</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>App uses Bluetooth to communicate with arduino nano</string>
 </dict>
 </plist>
