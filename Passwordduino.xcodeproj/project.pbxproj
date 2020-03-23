@@ -9,11 +9,19 @@
 /* Begin PBXBuildFile section */
 		C440A0E4241EF3A4004899F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C440A0E3241EF3A4004899F5 /* AppDelegate.swift */; };
 		C440A0E6241EF3A4004899F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C440A0E5241EF3A4004899F5 /* SceneDelegate.swift */; };
-		C440A0E8241EF3A4004899F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C440A0E7241EF3A4004899F5 /* ViewController.swift */; };
 		C440A0EB241EF3A4004899F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C440A0E9241EF3A4004899F5 /* Main.storyboard */; };
 		C440A0ED241EF3A6004899F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C440A0EC241EF3A6004899F5 /* Assets.xcassets */; };
 		C440A0F0241EF3A6004899F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C440A0EE241EF3A6004899F5 /* LaunchScreen.storyboard */; };
 		C440A0FB241EF3A6004899F5 /* PasswordduinoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C440A0FA241EF3A6004899F5 /* PasswordduinoTests.swift */; };
+		C440A106241FBD4D004899F5 /* EntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C440A105241FBD4D004899F5 /* EntryTableViewCell.swift */; };
+		C440A108241FBDE6004899F5 /* EntryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C440A107241FBDE6004899F5 /* EntryTableViewController.swift */; };
+		C440A10A241FD3D7004899F5 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C440A109241FD3D7004899F5 /* Entry.swift */; };
+		C440A10C241FEA66004899F5 /* PasswordOrDuckyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C440A10B241FEA66004899F5 /* PasswordOrDuckyViewController.swift */; };
+		C440A10E241FEBB9004899F5 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C440A10D241FEBB9004899F5 /* PasswordViewController.swift */; };
+		C440A110241FECEE004899F5 /* DuckyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C440A10F241FECEE004899F5 /* DuckyViewController.swift */; };
+		C45583302422EC8400A0416A /* PasswordEntryPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C455832F2422EC8400A0416A /* PasswordEntryPopup.swift */; };
+		C47BD76F24228A470012046A /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47BD76E24228A470012046A /* SettingsTableViewController.swift */; };
+		C4DF5FB724213E0E00CA665B /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DF5FB624213E0E00CA665B /* Authentication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +38,6 @@
 		C440A0E0241EF3A4004899F5 /* Passwordduino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passwordduino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C440A0E3241EF3A4004899F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C440A0E5241EF3A4004899F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C440A0E7241EF3A4004899F5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C440A0EA241EF3A4004899F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C440A0EC241EF3A6004899F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C440A0EF241EF3A6004899F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +45,15 @@
 		C440A0F6241EF3A6004899F5 /* PasswordduinoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PasswordduinoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C440A0FA241EF3A6004899F5 /* PasswordduinoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordduinoTests.swift; sourceTree = "<group>"; };
 		C440A0FC241EF3A6004899F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C440A105241FBD4D004899F5 /* EntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewCell.swift; sourceTree = "<group>"; };
+		C440A107241FBDE6004899F5 /* EntryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewController.swift; sourceTree = "<group>"; };
+		C440A109241FD3D7004899F5 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		C440A10B241FEA66004899F5 /* PasswordOrDuckyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordOrDuckyViewController.swift; sourceTree = "<group>"; };
+		C440A10D241FEBB9004899F5 /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
+		C440A10F241FECEE004899F5 /* DuckyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuckyViewController.swift; sourceTree = "<group>"; };
+		C455832F2422EC8400A0416A /* PasswordEntryPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEntryPopup.swift; sourceTree = "<group>"; };
+		C47BD76E24228A470012046A /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		C4DF5FB624213E0E00CA665B /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,13 +95,21 @@
 		C440A0E2241EF3A4004899F5 /* Passwordduino */ = {
 			isa = PBXGroup;
 			children = (
+				C47BD76E24228A470012046A /* SettingsTableViewController.swift */,
+				C4DF5FB624213E0E00CA665B /* Authentication.swift */,
 				C440A0E3241EF3A4004899F5 /* AppDelegate.swift */,
 				C440A0E5241EF3A4004899F5 /* SceneDelegate.swift */,
-				C440A0E7241EF3A4004899F5 /* ViewController.swift */,
+				C440A107241FBDE6004899F5 /* EntryTableViewController.swift */,
+				C440A105241FBD4D004899F5 /* EntryTableViewCell.swift */,
+				C440A10B241FEA66004899F5 /* PasswordOrDuckyViewController.swift */,
+				C440A109241FD3D7004899F5 /* Entry.swift */,
+				C440A10D241FEBB9004899F5 /* PasswordViewController.swift */,
+				C440A10F241FECEE004899F5 /* DuckyViewController.swift */,
 				C440A0E9241EF3A4004899F5 /* Main.storyboard */,
 				C440A0EC241EF3A6004899F5 /* Assets.xcassets */,
 				C440A0EE241EF3A6004899F5 /* LaunchScreen.storyboard */,
 				C440A0F1241EF3A6004899F5 /* Info.plist */,
+				C455832F2422EC8400A0416A /* PasswordEntryPopup.swift */,
 			);
 			path = Passwordduino;
 			sourceTree = "<group>";
@@ -200,9 +224,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C440A0E8241EF3A4004899F5 /* ViewController.swift in Sources */,
+				C440A10A241FD3D7004899F5 /* Entry.swift in Sources */,
+				C440A106241FBD4D004899F5 /* EntryTableViewCell.swift in Sources */,
 				C440A0E4241EF3A4004899F5 /* AppDelegate.swift in Sources */,
+				C440A110241FECEE004899F5 /* DuckyViewController.swift in Sources */,
+				C440A10E241FEBB9004899F5 /* PasswordViewController.swift in Sources */,
+				C440A10C241FEA66004899F5 /* PasswordOrDuckyViewController.swift in Sources */,
+				C47BD76F24228A470012046A /* SettingsTableViewController.swift in Sources */,
+				C440A108241FBDE6004899F5 /* EntryTableViewController.swift in Sources */,
+				C45583302422EC8400A0416A /* PasswordEntryPopup.swift in Sources */,
 				C440A0E6241EF3A4004899F5 /* SceneDelegate.swift in Sources */,
+				C4DF5FB724213E0E00CA665B /* Authentication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
