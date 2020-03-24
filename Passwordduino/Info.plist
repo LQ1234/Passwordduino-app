@@ -64,5 +64,7 @@
 	<string>App uses Face ID to authenticate you</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>App uses Bluetooth to communicate with arduino nano</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>App uses Bluetooth to communicate with arduino nano</string>
 </dict>
 </plist>

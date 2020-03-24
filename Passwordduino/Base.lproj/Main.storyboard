@@ -356,7 +356,6 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your arduino from below " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LyJ-IM-x2G">
                                     <rect key="frame" x="8" y="11.666666666666664" width="243" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -380,13 +379,22 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4c-e9-uZY">
+                                            <rect key="frame" x="70" y="11.333333333333336" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="HGX-zy-Pth" firstAttribute="leading" secondItem="ZhV-mx-RQ7" secondAttribute="leadingMargin" id="JKk-vM-apj"/>
                                         <constraint firstItem="HGX-zy-Pth" firstAttribute="centerY" secondItem="ZhV-mx-RQ7" secondAttribute="centerY" id="SD9-yU-YZM"/>
+                                        <constraint firstItem="K4c-e9-uZY" firstAttribute="leading" secondItem="HGX-zy-Pth" secondAttribute="trailing" constant="8" id="b1x-o2-n7e"/>
+                                        <constraint firstItem="K4c-e9-uZY" firstAttribute="centerY" secondItem="ZhV-mx-RQ7" secondAttribute="centerY" id="wMM-OR-5NA"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="deviceStrength" destination="K4c-e9-uZY" id="65f-pN-JJS"/>
                                     <outlet property="label" destination="HGX-zy-Pth" id="95z-UU-RIu"/>
                                 </connections>
                             </tableViewCell>
@@ -400,7 +408,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sYp-x3-z2k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="854" y="1586"/>
+            <point key="canvasLocation" x="841" y="1586"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Cvn-8q-DBb">

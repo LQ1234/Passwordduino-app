@@ -17,27 +17,64 @@ class PasswordduinoInfo: NSObject {
     public static let syncNumUUID = CBUUID.init(string: "93752cfb-3ecc-44ae-a90f-1261766b8869")
 }
 
+class BluetoothDeviceInfo{
+    var lastRecievedAd:DispatchTime;
+    let peripheral:CBPeripheral;
+    var rssi:Double;
+    var isPasswordduino:Bool=false;
+    func peripheral(_ peripheral: CBPeripheral,
+        didReadRSSI RSSI: NSNumber,
+        error: Error?){
+        rssi=RSSI.doubleValue;
+    }
+    
+    init(_ peri:CBPeripheral, rssi:Double){
+        peripheral=peri;
+        self.rssi=rssi;
+        lastRecievedAd=DispatchTime.now();
+    }
+    
+    
+}
 class BluetoothDeviceListTableViewController: UITableViewController, CBCentralManagerDelegate {
-    var foundPeripherals:[CBPeripheral]=[];
+    var foundPeripherals:[BluetoothDeviceInfo]=[];
+    var bluetoothUpdateInterval: DispatchSourceTimer?=nil;
     
     private var centralManager: CBCentralManager!
     override func viewDidLoad() {
         super.viewDidLoad()
         centralManager = CBCentralManager(delegate: self, queue: nil)
-
+        
     }
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print("Central state update");
         if central.state != .poweredOn {
             print("Central is not powered on");
         } else {
             print("Central scanning");
-            centralManager.scanForPeripherals(withServices: nil)
+            centralManager.scanForPeripherals(withServices: nil,options: [CBCentralManagerScanOptionAllowDuplicatesKey:NSNumber(1)])
         }
     }
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        foundPeripherals.append(peripheral);
-        tableView.insertRows(at: [IndexPath(row: foundPeripherals.count, section: 0)], with: .automatic)
+        var isPasswordduino=false;
+        if let arr=advertisementData[CBAdvertisementDataServiceUUIDsKey] as? NSArray,let uuid=arr[0] as? CBUUID{
+            if(uuid==PasswordduinoInfo.autoTypeServiceUUID){
+                isPasswordduino=true;
+            }
+        }
+        if let found=foundPeripherals.first(where: {$0.peripheral==peripheral}){
+            found.lastRecievedAd=DispatchTime.now();
+            found.rssi=RSSI.doubleValue;
+            found.isPasswordduino=isPasswordduino;
+        }else{
+            tableView.beginUpdates()
+            let bdi=BluetoothDeviceInfo(peripheral,rssi: RSSI.doubleValue);
+            bdi.isPasswordduino=isPasswordduino;
+            foundPeripherals.append(bdi);
+            tableView.insertRows(at: [IndexPath(row: foundPeripherals.count-1, section: 0)], with: .automatic)
+            tableView.endUpdates()
+        }
 
     }
     // MARK: - Table view data source
@@ -57,12 +94,50 @@ class BluetoothDeviceListTableViewController: UITableViewController, CBCentralMa
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)  as? BluetoothDeviceListTableViewCell else{
             fatalError("The dequeued cell is of wrong type.")
         }
-        
-        cell.label.text = foundPeripherals[indexPath.row].name;
+        let dinfo=foundPeripherals[indexPath.row];
+        cell.label.text = dinfo.peripheral.name ?? "Unknown name";
+        cell.deviceStrength.text="\(dinfo.rssi)";
+        if(dinfo.isPasswordduino){
+            cell.isUserInteractionEnabled=true;
+            cell.label.isEnabled=true;
+            cell.deviceStrength.isEnabled=true;
+        }else{
+            cell.isUserInteractionEnabled=false;
+            cell.label.isEnabled=false;
+            cell.deviceStrength.isEnabled=false;
 
-        return cell
+        }
+        return cell;
     }
-    
+
+    override func viewDidAppear(_ animated: Bool){
+        bluetoothUpdateInterval = DispatchSource.makeTimerSource()
+        bluetoothUpdateInterval!.schedule(deadline: .now(), repeating: TimeInterval(0.1))
+        bluetoothUpdateInterval!.setEventHandler(handler: {[weak self] in
+            DispatchQueue.main.async {
+                var indxsToDelete:[Int]=[];
+                let now=DispatchTime.now();
+                for (indx,bdi) in self!.foundPeripherals.enumerated(){
+                    let cell=self?.tableView.cellForRow(at: IndexPath(row:indx,section: 0)) as? BluetoothDeviceListTableViewCell;
+                    if((now.uptimeNanoseconds-bdi.lastRecievedAd.uptimeNanoseconds)>1000000000){
+                        indxsToDelete.append(indx);
+                    }
+                    cell?.deviceStrength?.text="\(bdi.rssi)";
+                }
+                self?.tableView.beginUpdates()
+                for i in indxsToDelete.reversed(){
+                    self?.foundPeripherals.remove(at: i)
+                }
+                self?.tableView.deleteRows(at:indxsToDelete.map{(i) in IndexPath(row:i,section: 0)},with:.automatic);
+                self?.tableView.endUpdates()
+            }
+        });
+        bluetoothUpdateInterval?.resume();
+    }
+    override func viewWillDisappear(_ animated: Bool){
+        bluetoothUpdateInterval?.cancel();
+
+    }
 
     /*
     // Override to support conditional editing of the table view.
