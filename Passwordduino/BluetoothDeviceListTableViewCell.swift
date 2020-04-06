@@ -2,7 +2,7 @@
 //  BluetoothDeviceListTableViewCell.swift
 //  Passwordduino
 //
-//  Created by Larry Qiu on 3/23/20.
+//  Created by larry qiu on 3/23/20.
 //  Copyright © 2020 Larry's Tech. All rights reserved.
 //
 

@@ -16,6 +16,7 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
     
     var entryTypeSymbols:[EntryType:UIImage]=[:];
     @IBOutlet weak var searchBar: UISearchBar!
+
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationItem.leftBarButtonItem = self.editButtonItem;
@@ -26,7 +27,9 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
         entriesFiltered = entries
 
     }
-
+    override func viewDidAppear(_ animated: Bool) {
+        disableRearrangingFunctionsIfNeeded();
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -60,7 +63,6 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
             assertNotSearching();
             let entry = entries[indexPath.row];
             if(entry.entryType == .password){
@@ -97,7 +99,6 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
     
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
         return true
     }
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -170,13 +171,7 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
         }
     }
     @IBAction func unwindToEntryList(sender: UIStoryboardSegue) {
-        if(!(searchBar.text?.isEmpty ?? false)){
-            disableRearrangingFunctions();
-
-        }else{
-            enableRearrangingFunctions();
-
-        }
+        disableRearrangingFunctionsIfNeeded();
         var resultEntry:Entry?;
         if let sourceViewController = sender.source as? PasswordViewController, let entry = sourceViewController.entry {
             resultEntry=entry;
@@ -185,8 +180,7 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
             resultEntry=entry;
         }
         if let resultEntry=resultEntry{
-            if let currentlyEditing=currentlyEditing, let indx=tableView.indexPath(for:currentlyEditing){//Dirty code, fix later
-                assertNotSearching();
+            if let currentlyEditing=currentlyEditing, let indx=tableView.indexPath(for:currentlyEditing){
 
                 let oldVal=entriesFiltered[indx.row];
                 entries[entries.firstIndex{$0 === oldVal}!]=resultEntry;
@@ -199,6 +193,14 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
         }
         currentlyEditing=nil;
         saveEntries();
+    }
+    //MARK: Entry Util
+    private func disableRearrangingFunctionsIfNeeded(){
+        if((searchBar.text?.isEmpty ?? false)){
+            enableRearrangingFunctions();
+        }else{
+            disableRearrangingFunctions();
+        }
     }
     private func loadEntryTypeSymbols(){
         let duck = UIImage(named: "DuckSymbol")
@@ -229,11 +231,11 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
     }
     private func saveEntries() {
         guard let archivedData = try? NSKeyedArchiver.archivedData(withRootObject: entries, requiringSecureCoding: false) else{
-            displayErrorPopup(title:"Error",message:"Error serializing entries to file, report to developer.",controller: self){ (_) in};
+            infoPrompt(title:"Error",message:"Error serializing entries to file, report to developer.",controller: self){ (_) in};
             return;
         }
         guard ((try? archivedData.write(to: Entry.archiveURL)) != nil) else{
-            displayErrorPopup(title:"Error",message:"Error writing entries to file",controller: self){ (_) in };
+            infoPrompt(title:"Error",message:"Error writing entries to file",controller: self){ (_) in };
             return;
         }
  
@@ -243,7 +245,7 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
             return false;
         }
         guard let entries = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archivedData) as? [Entry] else{
-            displayErrorPopup(title:"Error",message:"Error deserializing entries from file, report to developer.",controller: self){ (_) in};
+            infoPrompt(title:"Error",message:"Error deserializing entries from file, report to developer.",controller: self){ (_) in};
             return(false);
         }
         self.entries=entries;

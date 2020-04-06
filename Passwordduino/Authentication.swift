@@ -10,17 +10,13 @@ import Foundation
 import LocalAuthentication
 import UIKit
 
-func displayErrorPopup(title:String,message:String,controller:UIViewController,callback: @escaping (UIAlertAction)->Void){
-    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: callback))
-    controller.present(alert, animated: true)
-}
+
 
 func authenticateWithDevicePassword(controller:UIViewController, callback:@escaping (Bool)->Void){
     let context = LAContext()
     var error: NSError?
     
-    if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+    if(context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error)) {
         context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "Authenticate to access settings" ) { success, error in
             if success {
                 DispatchQueue.main.async {
@@ -32,8 +28,8 @@ func authenticateWithDevicePassword(controller:UIViewController, callback:@escap
                 }
             }
         }
-    }else{
-        displayErrorPopup(title:"Unable to authenticate",message: error.debugDescription,controller:controller,callback: {(_:UIAlertAction)->Void in
+    } else {
+        infoPrompt(title:"Unable to authenticate",message: error.debugDescription,controller:controller,callback: {(_:UIAlertAction)->Void in
             DispatchQueue.main.async {
                 callback(false);
             }
@@ -51,7 +47,7 @@ func authenticateWithBiometrics(controller:UIViewController, callback:@escaping 
                             callback(true);
                         }
                     }else {
-                        displayErrorPopup(title:"Incorrect Password",message:"Incorrect Password",controller:controller){ (_) in
+                        infoPrompt(title:"Incorrect Password",message:"Incorrect Password",controller:controller){ (_) in
                             DispatchQueue.main.async {
                                 callback(false);
                             }
@@ -86,6 +82,67 @@ func authenticateWithBiometrics(controller:UIViewController, callback:@escaping 
         authenticateWithDevicePassword(controller:controller,callback: callback);
     }
 }
+
+//MARK: Device PSK
+
+func setDevicePSK(pskAsData: Data){
+
+    if(devicePSKExists()){
+        let findQuery: [String: Any] = [kSecClass as String: kSecClassKey,
+                                        kSecAttrLabel as String: "devicePSK"];
+        let setAttrs: [String: Any] = [kSecValueData as String: pskAsData];
+        let status = SecItemUpdate(findQuery as CFDictionary, setAttrs as CFDictionary)
+        precondition(status != errSecItemNotFound, "Trying to update existing item but it doesn't exist anymore: \(status)");
+        precondition(status==errSecSuccess, "Error Storing item in keychain: \(status)");
+    }else{
+        let query: [String: Any] = [kSecClass as String: kSecClassKey,
+                                    kSecAttrLabel as String: "devicePSK",
+                                    kSecValueData as String: pskAsData];
+        
+        let status = SecItemAdd(query as CFDictionary, nil);
+        precondition(status==errSecSuccess, "Error Storing item in keychain: \(status)");
+    }
+}
+func devicePSKExists()->Bool{
+    let query: [String: Any] = [kSecClass as String: kSecClassKey,
+                                kSecAttrLabel as String: "devicePSK",
+                                kSecMatchLimit as String: kSecMatchLimitOne,
+                                kSecReturnAttributes as String: false,
+                                kSecReturnData as String: false];
+    var item: CFTypeRef?;
+    let status = SecItemCopyMatching(query as CFDictionary, &item);
+    return(status != errSecItemNotFound);
+}
+func getDevicePSK()->Data?{
+    let query: [String: Any] = [kSecClass as String: kSecClassKey,
+                                kSecAttrLabel as String: "devicePSK",
+                                kSecMatchLimit as String: kSecMatchLimitOne,
+                                kSecReturnAttributes as String: true,
+                                kSecReturnData as String: true];
+    
+    var item: CFTypeRef?;
+    let status = SecItemCopyMatching(query as CFDictionary, &item);
+    guard status != errSecItemNotFound else {
+        return nil;
+    }
+    guard status == errSecSuccess else {
+        fatalError("Unsuccessful keychain get error: \(status)")
+    }
+    guard let existingItem = item as? [String : Any],
+        let pskData = existingItem[kSecValueData as String] as? Data
+    else {
+       fatalError("Unexpected password data in Keychain get request")
+    }
+    
+    return(pskData);
+}
+func deleteDevicePSK(){
+    let findQuery: [String: Any] = [kSecClass as String: kSecClassKey,
+                                    kSecAttrLabel as String: "devicePSK"];
+    let status = SecItemDelete(findQuery as CFDictionary)
+    precondition(status == errSecSuccess || status == errSecItemNotFound , "Unsuccessful keychain delete error: \(status)")
+}
+
 //MARK: Passwordduino Password
 
 func setPasswordduinoPassword(password: String){
@@ -98,8 +155,7 @@ func setPasswordduinoPassword(password: String){
         let setAttrs: [String: Any] = [kSecValueData as String: passwordAsData];
         let status = SecItemUpdate(findQuery as CFDictionary, setAttrs as CFDictionary)
         precondition(status != errSecItemNotFound, "Trying to update existing item but it doesn't exist anymore: \(status)");
-        precondition(status != errSecItemNotFound, "Error Storing item in keychain: \(status)");
-
+        precondition(status==errSecSuccess, "Error Storing item in keychain: \(status)");
     }else{
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrService as String: "passwordduino",
@@ -165,7 +221,7 @@ func setUserPassword(name:String, password: String){
         let setAttrs: [String: Any] = [kSecValueData as String: passwordAsData];
         let status = SecItemUpdate(findQuery as CFDictionary, setAttrs as CFDictionary)
         precondition(status != errSecItemNotFound, "Trying to update existing item but it doesn't exist anymore: \(status)");
-        precondition(status != errSecItemNotFound, "Error Storing item in keychain: \(status)");
+        precondition(status==errSecSuccess, "Error Storing item in keychain: \(status)");
 
     }else{
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,

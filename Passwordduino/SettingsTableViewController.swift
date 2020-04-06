@@ -14,6 +14,9 @@ class SettingsTableViewController: UITableViewController {
     var unlockedLock:UIImage!;
 
     @IBOutlet weak var usePasswordSwitch: UISwitch!
+    @IBOutlet weak var currentlySelectedPasswordduinoLabel: UILabel!
+
+    @IBOutlet weak var isPSKSetLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +26,20 @@ class SettingsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        lockedLock=UIImage(systemName: "lock")
-        unlockedLock=UIImage(systemName: "lock.open")
+        lockedLock=UIImage(systemName: "lock");
+        unlockedLock=UIImage(systemName: "lock.open");
         updatePasswordSwitch();
         isUnlocked=false;
-        setUnlockState(false, [1,2])
+        setUnlockState(false, [1,2]);
+        updateCurrentlySelectedPasswordduinoText();
+        updateIsPSKSetLabel();
+        print(getDevicePSK())
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        updateCurrentlySelectedPasswordduinoText();
+    }
+    
     @IBAction func unlockButtonClicked(_ sender: UIBarButtonItem) {
         if(isUnlocked){
             isUnlocked=false;
@@ -47,7 +57,32 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func setDevicePSKButtonPressed(_ sender: UIButton) {
+        promptHex(title:"New Pre Shared Key", message:"Enter new Pre Shared Key",controller: self,requiredLength:32){ (dataMaybe) in
+            if let data=dataMaybe{
+                print("data \(data)")
+                if let data=data{
+                    setDevicePSK(pskAsData: data);
+                }else{
+                    deleteDevicePSK();
+                }
+                self.updateIsPSKSetLabel();
+
+            }
+
+        }
+    }
     
+    private func updateIsPSKSetLabel(){
+        isPSKSetLabel.text=devicePSKExists() ? "set" : "unset";
+    }
+    private func updateCurrentlySelectedPasswordduinoText(){
+        if let sel=bluetoothWrapper.selectedPasswordduino{
+            currentlySelectedPasswordduinoLabel.text=sel.peripheral.name ?? "Unknown Name";
+        }else{
+            currentlySelectedPasswordduinoLabel.text="None"
+        }
+    }
     private func setUnlockState(_ isUnlocked:Bool,_ sections:[Int]){
         for section in sections{
             for row in 0..<tableView.numberOfRows(inSection: section){
