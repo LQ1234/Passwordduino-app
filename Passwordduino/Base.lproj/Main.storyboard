@@ -80,6 +80,7 @@
                                     <outlet property="EntryTypeImage" destination="zbA-gT-JYk" id="kho-uu-fMw"/>
                                     <outlet property="entryLabel" destination="YRC-7k-xTF" id="ie1-Th-89c"/>
                                     <outlet property="entryTypeImage" destination="zbA-gT-JYk" id="R06-v6-0GU"/>
+                                    <outlet property="executeButton" destination="Fb8-bk-mkc" id="RuC-58-Z90"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -216,90 +217,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Export/Import" footerTitle="" id="L3N-Tq-Gnd">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="4D9-o1-C4n">
-                                        <rect key="frame" x="0.0" y="271.00000381469727" width="414" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4D9-o1-C4n" id="GEi-Ax-SCF">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXI-H7-pdO">
-                                                    <rect key="frame" x="20" y="5.6666666666666679" width="112" height="33"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <state key="normal" title="Export (YAML)"/>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="tXI-H7-pdO" firstAttribute="leading" secondItem="GEi-Ax-SCF" secondAttribute="leadingMargin" id="ci3-bt-4zl"/>
-                                                <constraint firstItem="tXI-H7-pdO" firstAttribute="centerY" secondItem="GEi-Ax-SCF" secondAttribute="centerY" id="inu-Rc-Ynj"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="DQO-VI-fb0">
-                                        <rect key="frame" x="0.0" y="314.66667175292969" width="414" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DQO-VI-fb0" id="6B0-14-QjE">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v10-So-FqQ">
-                                                    <rect key="frame" x="20" y="5.6666666666666679" width="181" height="33"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <state key="normal" title="Export (With Password)"/>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="v10-So-FqQ" firstAttribute="centerY" secondItem="6B0-14-QjE" secondAttribute="centerY" id="dcG-tn-6Vl"/>
-                                                <constraint firstItem="v10-So-FqQ" firstAttribute="leading" secondItem="6B0-14-QjE" secondAttribute="leadingMargin" id="wnc-UO-oqY"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="dBH-VL-NT1">
-                                        <rect key="frame" x="0.0" y="358.33333969116211" width="414" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dBH-VL-NT1" id="RZC-La-5ix">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sg4-4s-1Jq">
-                                                    <rect key="frame" x="20" y="5.6666666666666679" width="112" height="33"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <state key="normal" title="Import (YAML)"/>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="sg4-4s-1Jq" firstAttribute="centerY" secondItem="RZC-La-5ix" secondAttribute="centerY" id="lBU-fd-VNB"/>
-                                                <constraint firstItem="sg4-4s-1Jq" firstAttribute="leading" secondItem="RZC-La-5ix" secondAttribute="leadingMargin" id="rmP-Ia-JUR"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="T3L-xy-q3c">
-                                        <rect key="frame" x="0.0" y="402.00000762939453" width="414" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T3L-xy-q3c" id="dWi-gU-Igr">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhM-TE-pRo">
-                                                    <rect key="frame" x="20" y="5.6666666666666679" width="181" height="33"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <state key="normal" title="Import (With Password)"/>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="uhM-TE-pRo" firstAttribute="centerY" secondItem="dWi-gU-Igr" secondAttribute="centerY" id="AfJ-kl-rAG"/>
-                                                <constraint firstItem="uhM-TE-pRo" firstAttribute="leading" secondItem="dWi-gU-Igr" secondAttribute="leadingMargin" id="RIJ-5O-rj9"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="Info" footerTitle="" id="iw9-tp-nMI">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="LKF-Lb-1zv" style="IBUITableViewCellStyleDefault" id="OqC-ki-056">
-                                        <rect key="frame" x="0.0" y="501.66667556762695" width="414" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="271.00000381469727" width="414" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OqC-ki-056" id="pz3-c8-fNW">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="43.666667938232422"/>
@@ -639,6 +560,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F5N-2p-xNV">
                                 <rect key="frame" x="20" y="832" width="90" height="30"/>
                                 <state key="normal" title="Test Compile"/>
+                                <connections>
+                                    <action selector="testCompilePressed:" destination="LFU-g0-y5y" eventType="touchUpInside" id="QHF-Pe-piN"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilN-yo-HPf">
                                 <rect key="frame" x="369" y="838" width="24.333333333333314" height="23.666666666666629"/>

@@ -28,19 +28,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        bluetoothWrapper.startScan();
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        bluetoothWrapper.stopScan();
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        bluetoothWrapper.startScan();
+
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
     }
-
+    
     func sceneDidEnterBackground(_ scene: UIScene) {
+        bluetoothWrapper.stopScan();
+
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.

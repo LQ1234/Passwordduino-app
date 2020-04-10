@@ -247,7 +247,7 @@ class BluetoothWrapper:NSObject, CBCentralManagerDelegate{
     private var deletionCallback: (([Int],()->Void) -> Void)?=nil;
     private var changeCallback: ((Int) -> Void)?=nil;
     private var selectCallback: ((Int?) -> Void)?=nil;
-    
+    var selectedPasswordduinoChangedCallback: (() -> Void)? = nil;
     private var previouslyConnectedUUID:UUID?={
         if let archivedData = try? Data(contentsOf: PasswordduinoPeripheralManager.previouslyConnectedPeripheralArchiveURL)  {
             if let uuid = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archivedData) as? UUID {
@@ -262,6 +262,7 @@ class BluetoothWrapper:NSObject, CBCentralManagerDelegate{
                let archivedData = try? NSKeyedArchiver.archivedData(withRootObject: uuid, requiringSecureCoding: false){
                 try? archivedData.write(to: PasswordduinoPeripheralManager.previouslyConnectedPeripheralArchiveURL);
             }
+            selectedPasswordduinoChangedCallback?();
         }
     };
     

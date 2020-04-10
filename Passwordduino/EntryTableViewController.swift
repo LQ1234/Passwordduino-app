@@ -25,7 +25,15 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
         loadEntries()
         
         entriesFiltered = entries
-
+        bluetoothWrapper.selectedPasswordduinoChangedCallback={[weak self] in
+            if let self=self{
+                
+                for cell in self.tableView.visibleCells{
+                    let typedCell=cell as! EntryTableViewCell;
+                    typedCell.executeButton.isEnabled=bluetoothWrapper.selectedPasswordduino != nil;
+                }
+            }
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
         disableRearrangingFunctionsIfNeeded();
@@ -47,6 +55,7 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
         cell.entryTypeImage.image=entryTypeSymbols[cellcontents.entryType];
         cell.viewController=self;
         cell.entry=cellcontents;
+        cell.executeButton.isEnabled=bluetoothWrapper.selectedPasswordduino != nil;
         return cell;
     }
     
@@ -159,6 +168,9 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
             if let dest=nav.topViewController as?PasswordOrDuckyViewController{
                 dest.rootView=self;
             }
+            if let dest=nav.topViewController as?DuckyViewController{
+                dest.entryVC=self;
+            }
         }
         if let entry=currentlyEditing?.entry{
 
@@ -167,7 +179,9 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
             }
             if let vc=segue.destination as? DuckyViewController{
                 vc.entry=entry;
+                vc.entryVC=self;
             }
+            
         }
     }
     @IBAction func unwindToEntryList(sender: UIStoryboardSegue) {
@@ -238,7 +252,7 @@ class EntryTableViewController: UITableViewController,UISearchBarDelegate {
             infoPrompt(title:"Error",message:"Error writing entries to file",controller: self){ (_) in };
             return;
         }
- 
+
     }
     @discardableResult private func loadEntries() -> Bool{
         guard let archivedData = try? Data(contentsOf: Entry.archiveURL) else {

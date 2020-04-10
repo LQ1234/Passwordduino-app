@@ -13,6 +13,7 @@ class DuckyViewController: UIViewController,UITextFieldDelegate{
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    var entryVC:EntryTableViewController?=nil;
     var entry: Entry?;
 
     override func viewDidLoad() {
@@ -59,6 +60,18 @@ class DuckyViewController: UIViewController,UITextFieldDelegate{
             navigationItem.title = textField.text;
         }
     }
+    @IBAction func testCompilePressed(_ sender: UIButton) {
+        if let entryVC=entryVC{
+            Bytecode.from(ducky: contentsTextView.text, passwordInfo: (entries:entryVC.entries, controller: nil)) { (res, error) in
+                guard let res=res else{
+                    infoPrompt(title:"Ducky Script Error",message:error,controller:self){_ in}
+                    return;
+                }
+                
+                infoPrompt(title:"Ducky Script",message:"Compiled Successfully",controller:self){_ in}
+            }
+        }
+    }
     
     // MARK: - Navigation
 
@@ -73,5 +86,6 @@ class DuckyViewController: UIViewController,UITextFieldDelegate{
         let nameText = nameTextField.text ?? "";
         saveButton.isEnabled = !nameText.isEmpty;
     }
-
+    
+    
 }
